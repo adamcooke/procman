@@ -41,6 +41,18 @@ module ProcMan
         end
       end
     end
-        
+    
+    # Create a new Procfile template in the current directory root
+    def init
+      path = File.expand_path('./Procfile')
+      if File.file?(path)
+        raise Error, "Procfile already exists at #{path}"
+      else
+        template_path = File.expand_path('../../Procfile.template', __FILE__)
+        File.open(path, 'w') { |f| f.write(File.read(template_path)) }
+        puts "\e[32mProcfile created at #{path}"
+      end
+    end
+    
   end
 end

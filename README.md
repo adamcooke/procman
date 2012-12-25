@@ -22,6 +22,16 @@ gem 'procman'
 Once installed, you can execute commands as shown below but you should prefix `bundle exec`
 to the start of the command.
 
+## Creating your initial Procfile
+
+The command line tool allows you to create an example `Procfile` with a simple command. This
+will create a `Procfile` in the root of the directory you are currently within. You can then
+open this template and make changes as appropriate for your applications.
+
+```bash
+$ procman init
+```
+
 ## Example Procfile
 
 Your Procfile can contain multiple types of process and each process should define

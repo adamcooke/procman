@@ -1,0 +1,24 @@
+process :example_worker do
+
+  # Only action this process in production on a specific host
+  # constraint :environment => 'production', :host => 'app01.myapp.com'
+
+  # Only action this process in development
+  # constraint :environment => 'development'
+  
+  # Define the action to be carried out when this process should start
+  start do
+    
+  end
+  
+  # Define the action to be carried out when this process should stop
+  stop do
+    
+  end
+  
+  # Define the action to be carried out when this process should restart
+  restart do
+    
+  end
+  
+end
