@@ -22,11 +22,11 @@ powered by our Ruby backgrounding system, rbg.
 process :unicorn do
 
   start do
-    system("umask 002 && bundle exec unicorn_rails -E production -c config/unicorn.rb -D")
+    system("umask 002 && bundle exec unicorn_rails -E #{environment} -c #{root}/config/unicorn.rb -D")
   end
   
   stop do
-    system("kill `cat tmp/pids/unicorn.production.pid`")
+    system("kill `cat #{root}/tmp/pids/unicorn.#{environment}.pid`")
   end
   
   restart { stop and start }
@@ -36,15 +36,15 @@ end
 process :worker do
   
   start do
-    system("bundle exec rbg start -c config/processes/worker.rb -E production")
+    system("bundle exec rbg start -c #{root}/config/processes/worker.rb -E #{environment}")
   end
   
   stop do
-    system("bundle exec rbg stop -c config/processes/worker.rb -E production")
+    system("bundle exec rbg stop -c #{root}/config/processes/worker.rb -E #{environment}")
   end
 
   restart do
-    system("bundle exec rbg reload -c config/processes/worker.rb -E production")
+    system("bundle exec rbg reload -c #{root}/config/processes/worker.rb -E #{environment}")
   end
   
 end
@@ -59,6 +59,23 @@ the command using `bundle exec procman`.
 * `procman start` - start your processes
 * `procman stop` - stop your processes
 * `procman restart` - restart your processes
+
+In fact, you can define any actions you wish. You do not need to be constrained by start,
+stop & restart. If you executed `procman jump`, it would call the `jump` method for each
+process within your `Procfile`.
+
+Also, You can pass options to these methods to add extra functionality.
+
+* `-e` - allows you specify the environment which is provided as the environment variable in your methods.
+* `--processes` - allows you to specify which processes (comma separated) should be executed in the action.
+
+Some examples of how to execute these options:
+
+```bash
+$ procman start -e production
+$ procman start -e production --processes worker
+$ procman start --processes worker,unicorn
+```
 
 ## Executing on deployment
 
