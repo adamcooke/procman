@@ -46,6 +46,9 @@ process :unicorn do
 end
 
 process :worker do
+
+  constraint :environment => 'production', :host => /\.production\.myapp\z/
+  constraint :environment => 'development', :host => /\.local\z/
   
   start do
     system("bundle exec rbg start -c #{root}/config/processes/worker.rb -E #{environment}")
@@ -62,6 +65,27 @@ process :worker do
 end
 ```
 
+### Specifying constraints
+
+If you only want certain processes to execute under certain environments or on specific hosts,
+you can use constraints to restrict these.
+
+You can specify any number of constraints for a process as shown below. If no constraints are defined
+for a specific process, it will always be included when your action is executed. If a constraint is
+added, the process's action will only be invoked when at least one of the constraints is matched otherwise
+it will be skipped.
+
+Constraints are configured by adding `constraint` "rules" to your process definitions. 
+
+```ruby
+# execute always in production
+constraint :environment => 'production'
+# execute on hosts where the hostname ends in .local
+constraint :host => /\.local\z/
+# execute in prodution and where the hostname is 'app01'
+constraint :environment => 'production', :host => 'app01'
+```
+
 ## Executing process commands
 
 Once you have a Procfile, you can execute commands by sending them to the `procman`
@@ -74,7 +98,8 @@ the command using `bundle exec procman`.
 
 In fact, you can define any actions you wish. You do not need to be constrained by start,
 stop & restart. If you executed `procman jump`, it would call the `jump` method for each
-process within your `Procfile`.
+process within your `Procfile`. There are various action names which are reserved, including:
+`name`, `options`, `environment`, `host`, `root` and `constraint`.
 
 Also, You can pass options to these methods to add extra functionality.
 

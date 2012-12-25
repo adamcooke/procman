@@ -1,5 +1,6 @@
 require 'proc_man/process'
 require 'proc_man/procfile'
+require 'proc_man/constraint'
 
 module ProcMan
   
