@@ -10,6 +10,18 @@ your application as a whole.
 The `Procfile` is a Ruby file which you can use to define how to manipulate
 your processes.
 
+## Setting up
+
+If you're using Bundler (you should be) and wish to use procman, just include it within
+your Gemfile and run `bundle` to install it. 
+
+```ruby
+gem 'procman'
+```
+
+Once installed, you can execute commands as shown below but you should prefix `bundle exec`
+to the start of the command.
+
 ## Example Procfile
 
 Your Procfile can contain multiple types of process and each process should define
@@ -85,3 +97,5 @@ commands whenever you deploy. Just require the deploy recipes in your `Capfile`.
 ```ruby
 require 'proc_man/deploy'
 ```
+
+This requires that you are using bundler and the `procman` gem has been included in your Gemfile.
