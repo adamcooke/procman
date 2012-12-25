@@ -1,7 +1,22 @@
 #!/usr/bin/env ruby
 require 'proc_man'
 begin
-  ProcMan.run(ARGV[0], ARGV[1])
+  
+  # Convert command line arguments into the appropriate ruby objects
+  args = ARGV.dup
+  final_args = []
+  options = {}
+  until args.empty?
+    arg = args.shift
+    if arg =~ /\A\-/
+      options[arg.gsub(/\A\-+/, '').to_sym] = args.shift
+    else
+      final_args << arg
+    end
+  end
+  
+  # Execute the command
+  ProcMan.run(final_args.first, options)
 rescue ProcMan::Error => e
   puts "\e[31m" + e.message + "\e[0m"
   Process.exit(1)

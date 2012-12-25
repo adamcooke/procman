@@ -22,22 +22,24 @@ module ProcMan
       @processes ||= Array.new
     end
     
-    def run(method, environment = nil)
+    def run(method, options = {})
       load_procfile(File.expand_path('./Procfile'))
       if method.nil?
         raise Error, "Command to execute was not specified. For example, pass 'start' to start processes."
       else
         for process in self.processes
-          process.environment = environment
+          process.options = options
           if process.defined_method?(method)
-            puts "\e[33m#{method.capitalize}ing #{process.name}\e[0m"
-            process.send(method)
+            if process.execute?
+              puts "\e[33m#{method.capitalize}ing #{process.name}\e[0m"
+              process.send(method)
+            end
           else
             puts "\e[31mThe #{process.name} process does not implement a '#{method}' method\e[0m"
           end
         end
       end
     end
-    
+        
   end
 end

@@ -1,9 +1,9 @@
 module ProcMan
   class Process
     
-    attr_writer :environment
+    attr_writer :options
     
-    def initialize(name, options = {})
+    def initialize(name)
       @name = name
     end
     
@@ -11,12 +11,20 @@ module ProcMan
       @name
     end
     
+    def options
+      @options ||= {}
+    end
+    
     def environment
-      @environment || 'development'
+      self.options[:environment] || self.options[:e] || self.options[:env] || 'development'
     end
     
     def root
       @root ||= File.expand_path('./')
+    end
+    
+    def execute?
+      self.options[:processes].nil? || self.options[:processes].split(',').include?(self.name.to_s)
     end
     
     def method_missing(method, &block)
