@@ -12,7 +12,11 @@ module ProcMan
     end
     
     def environment
-      @environment || 'production'
+      @environment || 'development'
+    end
+    
+    def root
+      @root ||= File.expand_path('./')
     end
     
     def method_missing(method, &block)
