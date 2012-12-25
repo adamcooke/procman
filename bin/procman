@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'proc_man'
 begin
-  ProcMan.run(ARGV.first)
+  ProcMan.run(ARGV[0], ARGV[1])
 rescue ProcMan::Error => e
   puts "\e[31m" + e.message + "\e[0m"
   Process.exit(1)

@@ -1,12 +1,18 @@
 module ProcMan
   class Process
     
-    def initialize(name)
+    attr_writer :environment
+    
+    def initialize(name, options = {})
       @name = name
     end
     
     def name
       @name
+    end
+    
+    def environment
+      @environment || 'production'
     end
     
     def method_missing(method, &block)

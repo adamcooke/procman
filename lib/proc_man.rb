@@ -3,7 +3,7 @@ require 'proc_man/procfile'
 
 module ProcMan
   
-  VERSION = '1.0.0'
+  VERSION = '1.1.0'
   
   class Error < StandardError; end
   
@@ -22,12 +22,13 @@ module ProcMan
       @processes ||= Array.new
     end
     
-    def run(method)
+    def run(method, environment = nil)
       load_procfile(File.expand_path('./Procfile'))
       if method.nil?
         raise Error, "Command to execute was not specified. For example, pass 'start' to start processes."
       else
         for process in self.processes
+          process.environment = environment
           if process.defined_method?(method)
             puts "\e[33m#{method.capitalize}ing #{process.name}\e[0m"
             process.send(method)
