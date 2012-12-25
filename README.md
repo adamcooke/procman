@@ -60,3 +60,11 @@ the command using `bundle exec procman`.
 * `procman stop` - stop your processes
 * `procman restart` - restart your processes
 
+## Executing on deployment
+
+You can use the included Capistrano recipe to automatically run your procman start/stop/restart
+commands whenever you deploy. Just require the deploy recipes in your `Capfile`.
+
+```ruby
+require 'proc_man/deploy'
+```
