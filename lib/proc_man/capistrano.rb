@@ -21,7 +21,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     
     def procman_command(command)
       command = "sh -c \"cd #{current_path} && bundle exec procman #{command} --environment #{fetch(:rails_env, 'production')}\""
-      if user = fetch(:procman_user, 'app')
+      if user = fetch(:procman_user, nil)
         command = "sudo -u #{user} #{command}" 
       end
       command
