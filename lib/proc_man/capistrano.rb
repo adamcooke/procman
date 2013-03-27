@@ -20,7 +20,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     after 'deploy:restart', "procman:restart"
     
     def procman_command(command)
-      command = "sh -c \"cd #{deploy_to} && bundle exec procman #{command} --environment #{fetch(:rails_env, 'production')}\""
+      command = "sh -c \"cd #{current_path} && bundle exec procman #{command} --environment #{fetch(:rails_env, 'production')}\""
       if user = fetch(:procman_user, 'app')
         command = "sudo -u #{user} #{command}" 
       end
