@@ -24,6 +24,11 @@ Capistrano::Configuration.instance(:must_exist).load do
       if user = fetch(:procman_user, nil)
         command = "sudo -u #{user} #{command}" 
       end
+      
+      procfile_path = fetch(:procfile_path, "./Procfile")
+      if procfile_path
+        command << " --procfile #{procfile_path}"
+      end
       command
     end
     

@@ -4,7 +4,7 @@ require 'proc_man/constraint'
 
 module ProcMan
   
-  VERSION = '1.3.2'
+  VERSION = '1.4.0'
   
   class Error < StandardError; end
   
@@ -24,7 +24,7 @@ module ProcMan
     end
     
     def run(method, options = {})
-      load_procfile(File.expand_path('./Procfile'))
+      load_procfile(options[:procfile] || File.expand_path('./Procfile'))
       if method.nil?
         raise Error, "Command to execute was not specified. For example, pass 'start' to start processes."
       else
