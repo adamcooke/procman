@@ -130,7 +130,7 @@ You can use the included Capistrano recipe to automatically run your procman sta
 commands whenever you deploy. Just require the deploy recipes in your `Capfile`.
 
 ```ruby
-require 'proc_man/deploy'
+require 'proc_man/capistrano'
 ```
 
 This requires that you are using bundler and the `procman` gem has been included in your Gemfile.
