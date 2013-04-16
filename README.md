@@ -94,6 +94,8 @@ constraint :environment => 'production'
 constraint :host => /\.local\z/
 # execute in prodution and where the hostname is 'app01'
 constraint :environment => 'production', :host => 'app01'
+# only execute if process explicity set using --processes
+constraint :manual => true
 ```
 
 ## Executing process commands
