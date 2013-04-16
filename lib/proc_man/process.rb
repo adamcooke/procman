@@ -33,6 +33,12 @@ module ProcMan
     def host
       @host ||= `hostname -f`.strip
     end
+
+    ## Returns whether this process is explicitly listed
+    def manual
+      return @manual unless @manual.nil?
+      @manual = self.options[:processes] && self.options[:processes].split(',').include?(self.name.to_s)
+    end
     
     ## Sets a constraint for this process
     def constraint(hash = {})

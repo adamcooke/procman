@@ -25,6 +25,8 @@ module ProcMan
         !!condition.match(value)
       when Array
         condition.any? { |c| compare(c, value) }
+      when TrueClass
+        value == "true"
       else
         false
       end
