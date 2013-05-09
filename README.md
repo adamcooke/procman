@@ -136,3 +136,9 @@ require 'proc_man/capistrano'
 ```
 
 This requires that you are using bundler and the `procman` gem has been included in your Gemfile.
+
+If you'd like to start/stop/restart your processes using capistrano you can issue the following command. Optionally set `-s processes=worker` to restart only your worker process.
+
+```sh
+cap procman:restart -s processes=worker
+```
