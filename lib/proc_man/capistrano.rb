@@ -24,7 +24,14 @@ Capistrano::Configuration.instance(:must_exist).load do
       procfile_path = fetch(:procfile_path, "./Procfile")
       procfile = procfile_path ? " --procfile #{procfile_path}" : ''
 
-      command = "sh -c \"cd #{current_path} && bundle exec procman #{command} --environment #{fetch(:rails_env, 'production')} #{procfile}\""
+      if processes = fetch(:processes, nil)
+        process_opts = "--processes #{processes}"
+      else
+        process_opts = ''
+      end
+
+      command = "sh -c \"cd #{current_path} && bundle exec procman #{command} --environment #{fetch(:rails_env, 'production')} #{process_opts} #{procfile}\""
+
       if user = fetch(:procman_user, nil)
         command = "sudo -u #{user} #{command}" 
       end
