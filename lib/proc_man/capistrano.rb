@@ -3,15 +3,15 @@
 
 Capistrano::Configuration.instance(:must_exist).load do
   namespace :procman do
-    task :start, :roles => :app  do
+    task :start, :roles => fetch(:procman_roles, [:app])  do
       run procman_command(:start)
     end
 
-    task :stop, :roles => :app do
+    task :stop, :roles => fetch(:procman_roles, [:app]) do
       run procman_command(:stop)
     end
 
-    task :restart, :roles => :app do
+    task :restart, :roles => fetch(:procman_roles, [:app]) do
       run procman_command(:restart)
     end
 
