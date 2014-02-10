@@ -21,7 +21,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     
     def procman_command(command)
 
-      procfile_path = fetch(:procfile_path, "./Procfile")
+      procfile_path = fetch(:procfile_path, "#{current_path}/Procfile")
       procfile = procfile_path ? " --procfile #{procfile_path}" : ''
 
       if processes = fetch(:processes, nil)
