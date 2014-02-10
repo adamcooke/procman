@@ -71,5 +71,23 @@ module ProcMan
       end
     end
     
+    # A shortcut method for defining a set of RBG processes
+    def rbg(options = {})
+      options[:config_file] ||= "ProcessFile"
+      options[:environment] ||= "production"
+      start     { system("bundle exec rbg start -c #{options[:config_file]} -E #{options[:environment]}") }
+      stop      { system("bundle exec rbg stop -c #{options[:config_file]} -E #{options[:environment]}") }
+      restart   { system("bundle exec rbg restart -c #{options[:config_file]} -E #{options[:environment]}") }
+    end
+    
+    # A shortcut method for defining a unicorn
+    def unicorn(options = {})
+      options[:config_file] ||= "config/unicorn.rb"
+      options[:pid_path]    ||= "log/unicorn.pid"
+      start     { system("bundle exec unicorn -D -c #{options[:config_file]}") }
+      stop      { system("kill `cat #{options[:pid_path]}`") if File.exist?(options[:pid_path]) }
+      restart      { system("kill -USR2 `cat #{options[:pid_path]}`") if File.exist?(options[:pid_path]) }
+    end
+    
   end
 end
