@@ -4,7 +4,7 @@ require 'proc_man/constraint'
 
 module ProcMan
   
-  VERSION = '1.6.2'
+  VERSION = '1.6.3'
   
   class Error < StandardError; end
   
