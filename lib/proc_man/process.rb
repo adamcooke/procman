@@ -71,21 +71,26 @@ module ProcMan
       end
     end
     
+    def run(command)
+      puts "Running: #{command}"
+      system(command)
+    end
+    
     # A shortcut method for defining a set of RBG processes
     def rbg(options = {})
       options[:config_file] ||= "Rbgfile"
-      start     { system("bundle exec rbg start -c #{root}/#{options[:config_file]} -E #{environment}") }
-      stop      { system("bundle exec rbg stop -c #{root}/#{options[:config_file]} -E #{environment}") }
-      restart   { system("bundle exec rbg restart -c #{root}/#{options[:config_file]} -E #{environment}") }
+      start     { run("bundle exec rbg start -c #{root}/#{options[:config_file]} -E #{environment}") }
+      stop      { run("bundle exec rbg stop -c #{root}/#{options[:config_file]} -E #{environment}") }
+      restart   { run("bundle exec rbg restart -c #{root}/#{options[:config_file]} -E #{environment}") }
     end
     
     # A shortcut method for defining a unicorn
     def unicorn(options = {})
       options[:config_file]     ||= "config/unicorn.rb"
       options[:pid_path]        ||= "log/unicorn.pid"
-      start     { system("bundle exec unicorn -D -E #{environment} -c #{root}/#{options[:config_file]}") }
-      stop      { system("kill `cat #{root}/#{options[:pid_path]}`") if File.exist?(options[:pid_path]) }
-      restart   { system("kill -USR2 `cat #{root}/#{options[:pid_path]}`") if File.exist?(options[:pid_path]) }
+      start     { run("bundle exec unicorn -D -E #{environment} -c #{root}/#{options[:config_file]}") }
+      stop      { run("kill `cat #{root}/#{options[:pid_path]}`") if File.exist?(options[:pid_path]) }
+      restart   { run("kill -USR2 `cat #{root}/#{options[:pid_path]}`") if File.exist?(options[:pid_path]) }
     end
     
   end
