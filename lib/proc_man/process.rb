@@ -26,7 +26,7 @@ module ProcMan
     
     # Returns the current root directory path
     def root
-      @root ||= File.expand_path('./')
+      @root ||= self.options[:root] || self.options[:r] || File.expand_path('./')
     end
     
     ## Returns the current hostname of the machine executing this action
