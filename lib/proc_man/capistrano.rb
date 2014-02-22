@@ -30,11 +30,11 @@ Capistrano::Configuration.instance(:must_exist).load do
         process_opts = ''
       end
 
-      command = "sh -c \"cd #{current_path} && bundle exec procman #{command} --environment #{fetch(:rails_env, 'production')} #{process_opts} #{procfile}\""
+      command = "sh -c \"cd #{current_path} && bundle exec procman #{command} --root #{current_path} --environment #{fetch(:rails_env, 'production')} #{procfile} #{process_opts} \""
 
       if user = fetch(:procman_user, nil)
         command = "sudo -u #{user} #{command}" 
-      end
+      end 
       
       command
     end
