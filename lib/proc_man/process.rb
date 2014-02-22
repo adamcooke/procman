@@ -72,7 +72,7 @@ module ProcMan
     end
     
     def run(command)
-      puts "Running: #{command}"
+      puts "   -----> #{command}"
       system(command)
     end
     
