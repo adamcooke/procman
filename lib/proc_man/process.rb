@@ -29,11 +29,6 @@ module ProcMan
       @root ||= self.options[:root] || self.options[:r] || File.expand_path('./')
     end
     
-    # Should we be verbose?
-    def verbose?
-      self.options[:verbose] || self.options[:v] || false
-    end
-    
     ## Returns the current hostname of the machine executing this action
     def host
       @host ||= `hostname -f`.strip
@@ -77,7 +72,7 @@ module ProcMan
     end
     
     def run(command)
-      puts "-----> #{command}" if verbose?
+      puts "   -----> #{command}"
       system(command)
     end
     
