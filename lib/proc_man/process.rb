@@ -79,9 +79,9 @@ module ProcMan
     # A shortcut method for defining a set of RBG processes
     def rbg(options = {})
       options[:config_file] ||= "Rbgfile"
-      start     { run("bundle exec rbg start -c #{root}/#{options[:config_file]} -E #{environment}") }
-      stop      { run("bundle exec rbg stop -c #{root}/#{options[:config_file]} -E #{environment}") }
-      restart   { run("bundle exec rbg restart -c #{root}/#{options[:config_file]} -E #{environment}") }
+      start     { run("rbg start -c #{root}/#{options[:config_file]} -E #{environment}") }
+      stop      { run("rbg stop -c #{root}/#{options[:config_file]} -E #{environment}") }
+      restart   { run("rbg restart -c #{root}/#{options[:config_file]} -E #{environment}") }
     end
     
     # A shortcut method for defining a unicorn
