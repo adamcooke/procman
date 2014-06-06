@@ -135,6 +135,8 @@ commands whenever you deploy. Just require the deploy recipes in your `Capfile`.
 require 'proc_man/capistrano'
 ```
 
+If you're using Capistrano 3 require `procman/capistrano3` instead.
+
 This requires that you are using bundler and the `procman` gem has been included in your Gemfile.
 
 If you'd like to start/stop/restart your processes using capistrano you can issue the following command. Optionally set `-s processes=worker` to restart only your worker process.
