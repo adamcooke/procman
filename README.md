@@ -19,6 +19,8 @@ your Gemfile and run `bundle` to install it.
 gem 'procman'
 ```
 
+[![Gem Version](https://badge.fury.io/rb/procman.svg)](http://badge.fury.io/rb/procman)
+
 Once installed, you can execute commands as shown below but you should prefix `bundle exec`
 to the start of the command.
 
