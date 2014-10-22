@@ -28,11 +28,12 @@ module ProcMan
       if method.nil?
         raise Error, "Command to execute was not specified. For example, pass 'start' to start processes."
       else
+        ENV["PROCMAN_ENABLED"] = 'yes'
         for process in self.processes
           process.options = options
           if process.defined_method?(method)
             if process.execute?
-              puts "\e[33m#{method.capitalize}ing #{process.name}\e[0m"
+              puts "----> \e[33m#{method.capitalize}ing #{process.name}\e[0m"
               process.send(method)
             end
           else

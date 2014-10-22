@@ -72,7 +72,7 @@ module ProcMan
     end
     
     def run(command)
-      puts "   -----> #{command}"
+      puts "      \e[36m#{command}\e[0m"
       system(command)
     end
     
@@ -84,11 +84,12 @@ module ProcMan
       restart   { run("rbg restart -c #{root}/#{options[:config_file]} -E #{environment}") }
     end
     
-    # A shortcut method for defining a unicorn
+    # A shortcut method for defining a unicorn-like process
     def unicorn(options = {})
-      options[:config_file]     ||= "config/unicorn.rb"
-      options[:pid_path]        ||= "log/unicorn.pid"
-      start     { run("bundle exec unicorn -D -E #{environment} -c #{root}/#{options[:config_file]}") }
+      options[:name]            ||= 'unicorn'
+      options[:config_file]     ||= "config/#{options[:name]}.rb"
+      options[:pid_path]        ||= "log/#{options[:name]}.pid"
+      start     { run("bundle exec #{options[:name]} -D -E #{environment} -c #{root}/#{options[:config_file]}") }
       stop      { run("kill `cat #{root}/#{options[:pid_path]}`") if File.exist?(options[:pid_path]) }
       restart   { run("kill -USR2 `cat #{root}/#{options[:pid_path]}`") if File.exist?(options[:pid_path]) }
     end
