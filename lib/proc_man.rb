@@ -24,7 +24,7 @@ module ProcMan
     end
 
     def run(method, options = {})
-      load_procfile(options[:procfile] || File.expand_path('./Procfile'))
+      load_procfile(options[:procfile] || options[:f] || File.expand_path('./Procfile'))
       if method.nil?
         raise Error, "Command to execute was not specified. For example, pass 'start' to start processes."
       else

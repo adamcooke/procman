@@ -45,11 +45,16 @@ module ProcMan
       @constraints << Constraint.new(self, hash)
     end
 
+    ## Return all processes which should execute
+    def processes_to_execute
+      (self.options[:processes] || self.options[:p])
+    end
+
     # Specifies whether or not actions for this process should be executed
     # in the current context.
     def execute?
       (@constraints.empty? || @constraints.any?(&:matches?)) &&
-      (self.options[:processes].nil? || self.options[:processes].split(',').include?(self.name.to_s))
+      (self.processes_to_execute.nil? || self.processes_to_execute.split(',').include?(self.name.to_s))
     end
 
     # Specifies whether or not the provided method has been defined in the Procfile
