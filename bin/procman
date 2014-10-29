@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'proc_man'
 begin
-  
+
   # Convert command line arguments into the appropriate ruby objects
   args = ARGV.dup
   final_args = []
@@ -14,7 +14,7 @@ begin
       final_args << arg
     end
   end
-  
+
   command = final_args.first
   case command
   when 'init'
@@ -23,7 +23,7 @@ begin
     # Execute the command
     ProcMan.run(final_args.first, options)
   end
-  
+
 rescue ProcMan::Error => e
   puts "\e[31m" + e.message + "\e[0m"
   Process.exit(1)

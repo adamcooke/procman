@@ -29,7 +29,7 @@ namespace :procman do
   end
 
   after 'deploy:restart', "procman:restart"
-  
+
   def procman_command(command)
 
     procfile_path = fetch(:procfile_path, "#{current_path}/Procfile")
@@ -45,12 +45,12 @@ namespace :procman do
     command = "#{command} --root #{current_path} --environment #{fetch(:rails_env, 'production')} #{procfile} #{process_opts}"
 
     if user = fetch(:procman_user, nil)
-      command = "sudo -u #{user} #{command}" 
-    end 
-    
+      command = "sudo -u #{user} #{command}"
+    end
+
     command
   end
-  
+
 end
 
 namespace :load do

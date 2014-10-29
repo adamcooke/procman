@@ -13,7 +13,7 @@ your processes.
 ## Setting up
 
 If you're using Bundler (you should be) and wish to use procman, just include it within
-your Gemfile and run `bundle` to install it. 
+your Gemfile and run `bundle` to install it.
 
 ```ruby
 gem 'procman'
@@ -48,11 +48,11 @@ process :unicorn do
   start do
     system("umask 002 && bundle exec unicorn_rails -E #{environment} -c #{root}/config/unicorn.rb -D")
   end
-  
+
   stop do
     system("kill `cat #{root}/tmp/pids/unicorn.#{environment}.pid`")
   end
-  
+
   restart { stop and start }
 
 end
@@ -61,11 +61,11 @@ process :worker do
 
   constraint :environment => 'production', :host => /\.production\.myapp\z/
   constraint :environment => 'development', :host => /\.local\z/
-  
+
   start do
     system("bundle exec rbg start -c #{root}/config/processes/worker.rb -E #{environment}")
   end
-  
+
   stop do
     system("bundle exec rbg stop -c #{root}/config/processes/worker.rb -E #{environment}")
   end
@@ -73,7 +73,7 @@ process :worker do
   restart do
     system("bundle exec rbg reload -c #{root}/config/processes/worker.rb -E #{environment}")
   end
-  
+
 end
 ```
 
@@ -87,7 +87,7 @@ for a specific process, it will always be included when your action is executed.
 added, the process's action will only be invoked when at least one of the constraints is matched otherwise
 it will be skipped.
 
-Constraints are configured by adding `constraint` "rules" to your process definitions. 
+Constraints are configured by adding `constraint` "rules" to your process definitions.
 
 ```ruby
 # execute always in production

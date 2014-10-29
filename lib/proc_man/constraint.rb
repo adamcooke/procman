@@ -1,11 +1,11 @@
 module ProcMan
   class Constraint
-    
+
     def initialize(process, conditions)
       @process      = process
       @conditions   = conditions
     end
-    
+
     def matches?
       matches = 0
       for key, value in @conditions
@@ -13,9 +13,9 @@ module ProcMan
       end
       @conditions.size > 0 && matches == @conditions.size
     end
-    
+
     private
-    
+
     def compare(condition, value)
       value = value.to_s.downcase
       case condition
@@ -31,6 +31,6 @@ module ProcMan
         false
       end
     end
-    
+
   end
 end

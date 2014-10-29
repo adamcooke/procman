@@ -18,7 +18,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     after 'deploy:start', "procman:start"
     after 'deploy:stop', "procman:stop"
     after 'deploy:restart', "procman:restart"
-    
+
     def procman_command(command)
 
       procfile_path = fetch(:procfile_path, "#{current_path}/Procfile")
@@ -33,11 +33,11 @@ Capistrano::Configuration.instance(:must_exist).load do
       command = "sh -c \"cd #{current_path} && bundle exec procman #{command} --root #{current_path} --environment #{fetch(:rails_env, 'production')} #{procfile} #{process_opts} \""
 
       if user = fetch(:procman_user, nil)
-        command = "sudo -u #{user} #{command}" 
-      end 
-      
+        command = "sudo -u #{user} #{command}"
+      end
+
       command
     end
-    
+
   end
 end

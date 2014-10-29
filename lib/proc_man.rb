@@ -3,13 +3,13 @@ require 'proc_man/procfile'
 require 'proc_man/constraint'
 
 module ProcMan
-  
+
   VERSION = '1.9.2'
-  
+
   class Error < StandardError; end
-  
+
   class << self
-    
+
     def load_procfile(path)
       if File.file?(path)
         ProcMan::Procfile.class_eval(File.read(path))
@@ -18,11 +18,11 @@ module ProcMan
         raise Error, "Procfile not found at #{path}"
       end
     end
-    
+
     def processes
       @processes ||= Array.new
     end
-    
+
     def run(method, options = {})
       load_procfile(options[:procfile] || File.expand_path('./Procfile'))
       if method.nil?
@@ -42,7 +42,7 @@ module ProcMan
         end
       end
     end
-    
+
     # Create a new Procfile template in the current directory root
     def init
       path = File.expand_path('./Procfile')
@@ -54,6 +54,6 @@ module ProcMan
         puts "\e[32mProcfile created at #{path}"
       end
     end
-    
+
   end
 end
