@@ -94,7 +94,7 @@ module ProcMan
       options[:name]            ||= 'unicorn'
       options[:config_file]     ||= "config/#{options[:name]}.rb"
       options[:pid_path]        ||= "log/#{options[:name]}.pid"
-      options[:rackup_file]     ||= "config.ru"
+      options[:rackup_file]     ||= "#{root}/config.ru"
       start     { run("bundle exec #{options[:name]} -D -E #{environment} -c #{root}/#{options[:config_file]} #{options[:rackup_file]}") }
       stop      { run("kill `cat #{root}/#{options[:pid_path]}`") if File.exist?(options[:pid_path]) }
       restart   { run("kill -USR2 `cat #{root}/#{options[:pid_path]}`") if File.exist?(options[:pid_path]) }
