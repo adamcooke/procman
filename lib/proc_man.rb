@@ -12,7 +12,7 @@ module ProcMan
 
     def load_procfile(path)
       if File.file?(path)
-        ProcMan::Procfile.class_eval(File.read(path))
+        ProcMan::Procfile.class_eval(File.read(path), path)
         puts "\e[35mProcfile loaded from #{path}\e[0m"
       else
         raise Error, "Procfile not found at #{path}"
