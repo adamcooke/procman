@@ -95,9 +95,14 @@ module ProcMan
       options[:config_file]     ||= "config/#{options[:name]}.rb"
       options[:pid_path]        ||= "log/#{options[:name]}.pid"
       options[:rackup_file]     ||= "config.ru"
-      start     { run("bundle exec #{options[:name]} -D -E #{environment} -c #{root}/#{options[:config_file]} #{root}/#{options[:rackup_file]}") }
-      stop      { run("kill `cat #{root}/#{options[:pid_path]}`") if File.exist?(options[:pid_path]) }
-      restart   { run("kill -USR2 `cat #{root}/#{options[:pid_path]}`") if File.exist?(options[:pid_path]) }
+
+      pid_path    = options[:pid_path][0,1] == "/" ? options[:pid_path] : "#{root}/#{options[:pid_path]}"
+      config_file = options[:config_file][0,1] == "/" ? options[:config_file] : "#{root}/#{options[:config_file]}"
+      rackup_file = options[:rackup_file][0,1] == "/" ? options[:rackup_file] : "#{root}/#{options[:rackup_file]}"
+
+      start     { run("bundle exec #{options[:name]} -D -E #{environment} -c #{config_file} #{rackup_file}") }
+      stop      { run("kill `cat #{pid_path}`") if File.exist?(pid_path) }
+      restart   { run("kill -USR2 `cat #{pid_path}`") if File.exist?(pid_path) }
     end
 
   end
